@@ -20,7 +20,7 @@ BiTree::BiTree() : m_tree(NULL)
 
 BiTree::~BiTree()
 {
-    // Ïú»Ù
+    // é”€æ¯
 }
 
 void BiTree::create(const char* preOrder)
