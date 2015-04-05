@@ -9,7 +9,12 @@
 #ifndef __DIRECTGRAPH_H__
 #define __DIRECTGRAPH_H__
 
+#include <vector>
+
 //-------------------------------------------------------------------------
+
+// 硬编码顶点个数，方便调试
+static const int num = 50;
 
 class DirectGraph
 {
@@ -49,10 +54,12 @@ public:
     void dfs(visitor v);
     void bfs(visitor v);
     int locateVex(VexType vex) const;
+
+    bool topologicSort(std::vector<VexType>& v);
 private:
     void _dfs(int i, bool visited[], int num, visitor v);
 private:
-    VexNode* m_vexs;
+    VexNode m_vexs[num];
     int m_vexnum;
     int m_arcnum;
 };

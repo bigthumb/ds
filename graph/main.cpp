@@ -21,6 +21,7 @@ inline void myvisitor(DirectGraph::VexType data)
 int main(int argc, const char* argv[])
 {
     {
+        // 深度优先遍历和广度优先遍历
         DirectGraph::VexType vexs[] = { '1', '2', '3', '4', '5', '6', '7', '8'};
         int vexnum = sizeof(vexs) / sizeof(DirectGraph::VexType);
         DirectGraph::Arc arcs[] = 
@@ -38,6 +39,44 @@ int main(int argc, const char* argv[])
 
         dg.bfs(myvisitor);
         ::printf("\n");
+    }
+
+    ::printf("\n");
+
+    {
+        // 拓扑排序
+        // 无环
+        DirectGraph::VexType vexs1[] = { '1', '2', '3', '4', '5', '6'};
+        int vexnum1 = sizeof(vexs1) / sizeof(DirectGraph::VexType);
+        DirectGraph::Arc arcs1[] = 
+        {
+            {'1', '2', 0}, {'1', '3', 0}, {'1', '4', 0}, {'4', '5', 0}, 
+            {'6', '4', 0}, {'6', '5', 0}, {'3', '2', 0}, {'3', '5', 0}
+        };
+        int arcnum1 = sizeof(arcs1) / sizeof(DirectGraph::Arc);
+
+        DirectGraph dg1;
+        dg1.create(vexs1, vexnum1, arcs1, arcnum1);
+
+        std::vector<DirectGraph::VexType> v1;
+        bool ret1 = dg1.topologicSort(v1);
+
+
+        // 有环
+        DirectGraph::VexType vexs2[] = { '1', '2', '3', '4', '5', '6'};
+        int vexnum2 = sizeof(vexs2) / sizeof(DirectGraph::VexType);
+        DirectGraph::Arc arcs2[] = 
+        {
+            {'1', '2', 0}, {'1', '3', 0}, {'1', '4', 0}, {'4', '5', 0}, 
+            {'6', '4', 0}, {'5', '6', 0}, {'3', '2', 0}, {'3', '5', 0}
+        };
+        int arcnum2 = sizeof(arcs2) / sizeof(DirectGraph::Arc);
+
+        DirectGraph dg2;
+        dg2.create(vexs2, vexnum2, arcs2, arcnum2);
+
+        std::vector<DirectGraph::VexType> v2;
+        bool ret2 = dg2.topologicSort(v2);
     }
 
     ::printf("\n");
