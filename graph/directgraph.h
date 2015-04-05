@@ -18,6 +18,7 @@ public:
     ~DirectGraph();
 public:
     typedef char VexType;
+    typedef int WeightType;
 
     struct ArcBox
     {
@@ -25,6 +26,7 @@ public:
         int headvex;
         ArcBox* headlink;
         ArcBox* taillink;
+        WeightType weight;
     };
 
     struct VexNode
@@ -38,6 +40,7 @@ public:
     {
         VexType tail;
         VexType head;
+        WeightType weight;
     };
 
     void create(VexType vexs[], int vexnum, Arc arcs[], int arcnum);

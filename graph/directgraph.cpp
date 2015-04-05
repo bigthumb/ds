@@ -14,7 +14,7 @@
 
 DirectGraph::DirectGraph()
     : m_vexs(NULL)
-      , m_vexnum(0)
+    , m_vexnum(0)
     , m_arcnum(0)
 {
 
@@ -22,7 +22,7 @@ DirectGraph::DirectGraph()
 
 DirectGraph::~DirectGraph()
 {
-    // 清理工作
+    // 清理
 }
 
 void DirectGraph::create(VexType vexs[], int vexnum, Arc arcs[], int arcnum)
@@ -49,6 +49,7 @@ void DirectGraph::create(VexType vexs[], int vexnum, Arc arcs[], int arcnum)
         p->taillink = m_vexs[t].firstout;
         m_vexs[h].firstin = p;
         m_vexs[t].firstout = p;
+        p->weight = arcs[i].weight;
     }
 }
 

@@ -25,8 +25,8 @@ int main(int argc, const char* argv[])
         int vexnum = sizeof(vexs) / sizeof(DirectGraph::VexType);
         DirectGraph::Arc arcs[] = 
         {
-            {'1', '2'}, {'2', '4'}, {'4', '8'}, {'2', '5'}, {'5', '8'}, 
-            {'1', '3'}, {'3', '6'}, {'6', '7'}, {'7', '3'}
+            {'1', '2', 0}, {'2', '4', 0}, {'4', '8', 0}, {'2', '5', 0}, {'5', '8', 0}, 
+            {'1', '3', 0}, {'3', '6', 0}, {'6', '7', 0}, {'7', '3', 0}
         };
         int arcnum = sizeof(arcs) / sizeof(DirectGraph::Arc);
 
