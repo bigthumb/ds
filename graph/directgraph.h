@@ -56,6 +56,7 @@ public:
     int locateVex(VexType vex) const;
 
     bool topologicSort(std::vector<VexType>& v);
+    bool criticalPath(std::vector<Arc>& v);
 private:
     void _dfs(int i, bool visited[], int num, visitor v);
 private:

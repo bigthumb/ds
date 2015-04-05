@@ -152,6 +152,85 @@ bool DirectGraph::topologicSort(std::vector<VexType>& v)
     return (v.size() == m_vexnum);
 }
 
+bool DirectGraph::criticalPath(std::vector<Arc>& v)
+{
+    // 拓扑排序求出顶点最早开始时间ve
+    std::stack<int> s;
+    int indegree[num];
+    for(int i = 0; i < m_vexnum; ++i)
+    {
+        indegree[i] = 0;
+        for(ArcBox* p = m_vexs[i].firstin; p; p = p->headlink)
+        {
+            ++indegree[i];
+        }
+
+        if(0 == indegree[i])
+            s.push(i);
+    }
+
+    // 全部初始化为0
+    WeightType ve[num] = {0};
+
+    std::vector<int> topoList;
+    while(!s.empty())
+    {
+        int j = s.top();
+        s.pop();
+        topoList.push_back(j);
+
+        for(ArcBox* p = m_vexs[j].firstout; p; p = p->taillink)
+        {
+            int k = p->headvex;
+            if(0 == --indegree[k])
+                s.push(k);
+            
+            if(ve[j] + p->weight > ve[k])
+                ve[k] = ve[j] + p->weight;
+        }
+    }
+
+    if(topoList.size() != m_vexnum)
+        return false;
+
+    // 全部初始化为ve[m_vexnum - 1]
+    WeightType vl[num];
+    for(int i = 0; i < m_vexnum; ++i)
+    {
+        vl[i] = ve[m_vexnum - 1];
+    }
+
+    // 逆拓扑排序求出顶点最迟开始时间vl
+    for(int i = m_vexnum - 1; i >= 0; --i)
+    {
+        int j = topoList[i];
+        for(ArcBox* p = m_vexs[j].firstout; p; p = p->taillink)
+        {
+            int k = p->headvex;
+            if(vl[k] - p->weight < vl[j])
+                vl[j] = vl[k] - p->weight;
+        }
+    }
+
+    // 求出弧的最早开始时间e(i)=ve(i)，最迟开始时间l(i)=vl(j)-kut，若e(i)=l(i)，则该弧是关键弧
+    for(int j = 0; j < m_vexnum; ++j)
+    {
+        for(ArcBox* p = m_vexs[j].firstout; p; p = p->taillink)
+        {
+            int k = p->headvex;
+            WeightType e = ve[j];
+            WeightType l = vl[k] - p->weight;
+            if(e == l)
+            {
+                Arc arc = {m_vexs[j].data, m_vexs[k].data, p->weight};
+                v.push_back(arc);
+            }
+        }
+    }
+
+    return true;
+}
+
 void DirectGraph::_dfs(int i, bool visited[], int num, visitor v)
 {
     visited[i] = true;

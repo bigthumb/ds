@@ -82,6 +82,26 @@ int main(int argc, const char* argv[])
     ::printf("\n");
 
     {
+        // 找出关键弧，关键路径
+        DirectGraph::VexType vexs[] = { '1', '2', '3', '4', '5', '6'};
+        int vexnum = sizeof(vexs) / sizeof(DirectGraph::VexType);
+        DirectGraph::Arc arcs[] = 
+        {
+            {'1', '2', 3}, {'1', '3', 2}, {'2', '5', 3}, {'2', '4', 2}, 
+            {'3', '4', 4}, {'3', '6', 3}, {'5', '6', 1}, {'4', '6', 2}
+        };
+        int arcnum = sizeof(arcs) / sizeof(DirectGraph::Arc);
+
+        DirectGraph dg;
+        dg.create(vexs, vexnum, arcs, arcnum);
+
+        std::vector<DirectGraph::Arc> v;
+        bool ret = dg.criticalPath(v);
+    }
+
+    ::printf("\n");
+
+    {
         UndirectGraph::VexType vexs[] = { '1', '2', '3', '4', '5', '6', '7', '8'};
         int vexnum = sizeof(vexs) / sizeof(UndirectGraph::VexType);
         UndirectGraph::Edge edges[] = 
