@@ -10,6 +10,7 @@
 
 #include <queue>
 #include <stack>
+#include <limits>
 
 //-------------------------------------------------------------------------
 
@@ -229,6 +230,73 @@ bool DirectGraph::criticalPath(std::vector<Arc>& v)
     }
 
     return true;
+}
+
+DirectGraph::WeightType DirectGraph::infinity()
+{
+    return std::numeric_limits<WeightType>::max();
+}
+
+void DirectGraph::dijkstra(VexType s, std::vector<ShortestPath>& D)
+{
+    // 全部初始化为false
+    bool final[num] = {false};
+
+    D.resize(m_vexnum);
+    int v0 = locateVex(s);
+
+    for(int i = 0; i < m_vexnum; ++i)
+    {
+        if(v0 == i)
+        {
+            D[i].weight = 0;
+            D[i].sq.push_back(m_vexs[v0].data);
+            D[i].sq.push_back(m_vexs[v0].data);
+            final[v0] = true;
+        }
+        else
+        {
+            D[i].weight = infinity();
+            D[i].sq.push_back(m_vexs[v0].data);
+            D[i].sq.push_back(m_vexs[i].data);
+        }
+    }
+
+    int v = -1;
+    for(ArcBox* p = m_vexs[v0].firstout; p; p = p->taillink)
+    {
+        v = p->headvex;
+        D[v].weight = p->weight;
+    }
+
+    for(int i = 1; -1 != v && i < m_vexnum; ++i)
+    {
+        v = -1;
+        WeightType minW = infinity();
+        for(int j = 0; j < m_vexnum; ++j)
+        {
+            if(!final[j] && D[j].weight < minW)
+            {
+                v = j;
+                minW = D[j].weight;
+            }
+        }
+
+        if(-1 == v)
+            break;
+
+        final[v] = true;
+        for(ArcBox* p = m_vexs[v].firstout; p; p = p->taillink)
+        {
+            int w = p->headvex;
+            if(!final[w] && D[v].weight + p->weight < D[w].weight)
+            {
+                D[w].weight = D[v].weight + p->weight;
+                D[w].sq = D[v].sq;
+                D[w].sq.push_back(w);
+            }
+        }
+    }
 }
 
 void DirectGraph::_dfs(int i, bool visited[], int num, visitor v)

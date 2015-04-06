@@ -57,6 +57,15 @@ public:
 
     bool topologicSort(std::vector<VexType>& v);
     bool criticalPath(std::vector<Arc>& v);
+
+    static WeightType infinity();
+
+    struct ShortestPath
+    {
+        WeightType weight;
+        std::vector<VexType> sq;
+    };
+    void dijkstra(VexType s, std::vector<ShortestPath>& D);
 private:
     void _dfs(int i, bool visited[], int num, visitor v);
 private:

@@ -102,6 +102,26 @@ int main(int argc, const char* argv[])
     ::printf("\n");
 
     {
+        // ×î¶ÌÂ·¾¶
+        DirectGraph::VexType vexs[] = { '0', '1', '2', '3', '4', '5'};
+        int vexnum = sizeof(vexs) / sizeof(DirectGraph::VexType);
+        DirectGraph::Arc arcs[] = 
+        {
+            {'0', '5', 100}, {'0', '4', 30}, {'0', '2', 10}, {'1', '2', 5}, 
+            {'2', '3', 50}, {'3', '5', 10}, {'4', '5', 60}, {'4', '3', 20}
+        };
+        int arcnum = sizeof(arcs) / sizeof(DirectGraph::Arc);
+
+        DirectGraph dg;
+        dg.create(vexs, vexnum, arcs, arcnum);
+
+        std::vector<DirectGraph::ShortestPath> D;
+        dg.dijkstra('1', D);
+    }
+
+    ::printf("\n");
+
+    {
         UndirectGraph::VexType vexs[] = { '1', '2', '3', '4', '5', '6', '7', '8'};
         int vexnum = sizeof(vexs) / sizeof(UndirectGraph::VexType);
         UndirectGraph::Edge edges[] = 
