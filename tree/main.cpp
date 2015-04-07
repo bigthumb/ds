@@ -69,6 +69,7 @@ int main(int argc, const char* argv[])
 
     {
         // 键树
+        // 创建、查找key，以及找出所有以给定key开头的串
 
         KeyType kt1("CHANG");
         KeyType kt2("CAI");
