@@ -48,7 +48,7 @@ public:
         WeightType weight;
     };
 
-    void create(VexType vexs[], int vexnum, Arc arcs[], int arcnum);
+    void create(const VexType vexs[], int vexnum, const Arc arcs[], int arcnum);
 
     typedef void (*visitor)(VexType data);
     void dfs(visitor v);

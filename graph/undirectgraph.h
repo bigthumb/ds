@@ -39,7 +39,7 @@ public:
         VexType j;
     };
 
-    void create(VexType vexs[], int vexnum, Edge edges[], int edgenum);
+    void create(const VexType vexs[], int vexnum, const Edge edges[], int edgenum);
 
     typedef void (*visitor)(VexType data);
     void dfs(visitor v);

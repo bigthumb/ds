@@ -24,7 +24,7 @@ UndirectGraph::~UndirectGraph(void)
     // 清理工作
 }
 
-void UndirectGraph::create(VexType vexs[], int vexnum, Edge edges[], int edgenum)
+void UndirectGraph::create(const VexType vexs[], int vexnum, const Edge edges[], int edgenum)
 {
     //m_vexs = new VexNode[vexnum];
     m_vexnum = vexnum;

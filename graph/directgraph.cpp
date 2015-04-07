@@ -27,7 +27,7 @@ DirectGraph::~DirectGraph()
     // «Â¿Ì
 }
 
-void DirectGraph::create(VexType vexs[], int vexnum, Arc arcs[], int arcnum)
+void DirectGraph::create(const VexType vexs[], int vexnum, const Arc arcs[], int arcnum)
 {
     //m_vexs = new VexNode[vexnum];
     m_vexnum = vexnum;
