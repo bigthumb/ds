@@ -21,6 +21,7 @@ inline void myvisitor(DirectGraph::VexType data)
 int main(int argc, const char* argv[])
 {
     {
+        // 有向图
         // 深度优先遍历和广度优先遍历
         DirectGraph::VexType vexs[] = { '1', '2', '3', '4', '5', '6', '7', '8'};
         int vexnum = sizeof(vexs) / sizeof(DirectGraph::VexType);
@@ -122,6 +123,8 @@ int main(int argc, const char* argv[])
     ::printf("\n");
 
     {
+        // 无向图
+        // 深度优先遍历和广度优先遍历
         UndirectGraph::VexType vexs[] = { '1', '2', '3', '4', '5', '6', '7', '8'};
         int vexnum = sizeof(vexs) / sizeof(UndirectGraph::VexType);
         UndirectGraph::Edge edges[] = 
