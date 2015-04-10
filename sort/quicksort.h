@@ -9,20 +9,9 @@
 #ifndef __QSORT_H__
 #define __QSORT_H__
 
+#include "global.h"
+
 //-------------------------------------------------------------------------
-
-typedef int T;
-
-void myqsort(T a[], int low, int high);
-
-//--------------------------------------------------------------------------
-
-void swap(T a[], int i, int j)
-{
-    a[i] ^= a[j];
-    a[j] ^= a[i];
-    a[i] ^= a[j];
-}
 
 // 优化
 // 1. 头、尾、中间三者取中
@@ -33,11 +22,11 @@ int partition(T a[], int low, int high, bool& lowSwap, bool& highSwap)
 {
     int mid = (low + high) / 2;
     if(a[high] < a[mid])
-        swap(a, mid, high);
+        swap(a[mid], a[high]);
     if(a[high] < a[low])
-        swap(a, low, high);
+        swap(a[low], a[high]);
     if(a[low] < a[mid])
-        swap(a, low, mid);
+        swap(a[low], a[mid]);
 
     int l = low;
     int h = high;
@@ -48,7 +37,7 @@ int partition(T a[], int low, int high, bool& lowSwap, bool& highSwap)
         {
             if(h < high && a[h] > a[h + 1])
             {
-                swap(a, h, h + 1);
+                swap(a[h], a[h + 1]);
                 highSwap = true;
             }
         }
@@ -59,7 +48,7 @@ int partition(T a[], int low, int high, bool& lowSwap, bool& highSwap)
         {
             if(l > low && a[l - 1] > a[l])
             {
-                swap(a, l - 1, l);
+                swap(a[l - 1], a[l]);
                 lowSwap = true;
             }
         }
